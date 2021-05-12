@@ -4,12 +4,13 @@ let particles = [],
     WIDTH,
     HEIGHT;
 
-const n = 200,
+const n = 1000,
     minVel = 2,
     maxVel = 4,
-    minR = 2,
+    minR = 3,
     maxR = 5,
-    minDist = 300;
+    minDist = 300,
+    color = "#f00";
 
 const canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
@@ -23,8 +24,6 @@ const requestAnimationFrame =
 function init() {
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
-
-    console.log("Hi!");
 
     canvas.setAttribute("width", WIDTH);
     canvas.setAttribute("height", HEIGHT);
@@ -41,6 +40,8 @@ function init() {
         }
         c++;
     };
+
+    canvas.addEventListener("click", boom);
 
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.beginPath();
@@ -63,11 +64,21 @@ function ani() {
         // Add drag
         p.vel.setMag(p.vel.mag() * 0.99);
         p.update();
+        const sat = constrain(scale(p.vel.m, 0, 10, 0, 1), 0, 1);
+        const rgb = HSVtoRGB(0, 0, sat).map(el => Math.floor(el));
+        p.c = rgbToHex(...rgb);
         p.borders(1);
         p.show();
     }
 
     requestAnimationFrame(ani);
+}
+
+function boom() {
+    for (const p of particles) {
+        const dir = Vector.sub(p.pos, mouse).setMag(20);
+        p.applyForce(dir);
+    }
 }
 
 init();
