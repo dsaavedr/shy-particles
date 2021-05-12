@@ -4,12 +4,12 @@ let particles = [],
     WIDTH,
     HEIGHT;
 
-const n = 150,
+const n = 200,
     minVel = 2,
     maxVel = 4,
     minR = 2,
     maxR = 5,
-    minDist = 100;
+    minDist = 300;
 
 const canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
@@ -23,6 +23,8 @@ const requestAnimationFrame =
 function init() {
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
+
+    console.log("Hi!");
 
     canvas.setAttribute("width", WIDTH);
     canvas.setAttribute("height", HEIGHT);
@@ -56,9 +58,10 @@ function ani() {
         // Get distance to mouse
         const dist = Vector.dist(p.pos, mouse);
         if (dist < minDist) {
-            p.applyForce(Vector.sub(p.pos, mouse).setMag(scale(dist, 0, minDist, 0.1, 0.2)));
+            p.applyForce(Vector.sub(p.pos, mouse).setMag(scale(dist, 0, minDist, 0.2, 0.4)));
         }
         // Add drag
+        p.vel.setMag(p.vel.mag() * 0.99);
         p.update();
         p.borders(1);
         p.show();
