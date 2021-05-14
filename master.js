@@ -11,6 +11,7 @@ const minVel = 1,
     minR = 3,
     maxR = 5,
     minDist = 300,
+    boomStrength = 20,
     color = "#f00";
 
 const canvas = document.getElementById("canvas"),
@@ -79,7 +80,7 @@ function ani() {
 
 function boom() {
     for (const p of particles) {
-        const dir = Vector.sub(p.pos, mouse).setMag(20);
+        const dir = Vector.sub(p.pos, mouse).setMag(boomStrength);
         p.applyForce(dir);
     }
 }
