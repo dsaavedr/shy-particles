@@ -12,7 +12,8 @@ const minVel = 1,
     maxR = 5,
     minDist = 300,
     boomStrength = 20,
-    color = "#f00";
+    background = "#000",
+    particleColor = "#fff";
 
 const canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
@@ -34,7 +35,7 @@ function init() {
     for (let i = 0; i < n; i++) {
         const pos = new Vector(random(WIDTH), random(HEIGHT));
         const vel = Vector.random().setMag(random(minVel, maxVel));
-        particles.push(new Particle(pos, vel, Math.floor(random(minR, maxR))));
+        particles.push(new Particle(pos, vel, Math.floor(random(minR, maxR)), particleColor));
     }
 
     window.onmousemove = e => {
@@ -48,7 +49,7 @@ function init() {
 
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.beginPath();
-    ctx.fillStyle = "black";
+    ctx.fillStyle = background;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
     ctx.closePath();
 
