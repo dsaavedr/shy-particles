@@ -67,8 +67,8 @@ function ani() {
         // Add drag
         p.vel.setMag(p.vel.mag() * 0.99);
         p.update();
-        const sat = constrain(scale(p.vel.m, 0, 10, 0, 1), 0, 1);
-        const rgb = HSVtoRGB(0, 0, sat).map(el => Math.floor(el));
+        const val = constrain(scale(p.vel.m, 0, 10, 0, 1), 0, 1);
+        const rgb = HSVtoRGB(0, 0, val).map(el => Math.floor(el));
         p.c = rgbToHex(...rgb);
         p.borders(1);
         p.show();
