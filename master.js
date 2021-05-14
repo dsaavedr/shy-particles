@@ -27,7 +27,6 @@ function init() {
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
     n = Math.round(WIDTH / 2);
-    console.log(n);
 
     canvas.setAttribute("width", WIDTH);
     canvas.setAttribute("height", HEIGHT);
