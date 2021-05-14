@@ -2,11 +2,12 @@ let particles = [],
     c = 0,
     mouse = new Vector(-100, -100),
     WIDTH,
-    HEIGHT;
+    HEIGHT,
+    n;
 
-const n = 1000,
-    minVel = 2,
-    maxVel = 4,
+// Initial velocity
+const minVel = 1,
+    maxVel = 2,
     minR = 3,
     maxR = 5,
     minDist = 300,
@@ -24,6 +25,8 @@ const requestAnimationFrame =
 function init() {
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
+    n = Math.round(WIDTH / 2);
+    console.log(n);
 
     canvas.setAttribute("width", WIDTH);
     canvas.setAttribute("height", HEIGHT);
