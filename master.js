@@ -11,7 +11,6 @@ const minVel = 1,
     maxVel = 2,
     minR = 3,
     maxR = 5,
-    minDist = 300,
     boomStrength = 20,
     background = "#000",
     particleColor = "#fff";
@@ -28,7 +27,10 @@ const requestAnimationFrame =
 function init() {
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
-    n = Math.round(WIDTH / 2);
+    minDist = constrain(scale(WIDTH, 480, 1920, 100, 300), 100, 300);
+    n = constrain(scale(WIDTH, 480, 1920, 400, 1000), 400, 1000);
+    console.log(n);
+    mouse = new Vector(WIDTH / 2, HEIGHT / 2);
 
     canvas.setAttribute("width", WIDTH);
     canvas.setAttribute("height", HEIGHT);
@@ -58,9 +60,11 @@ function ani() {
 
     for (const p of particles) {
         // Get distance to mouse
-        const dist = Vector.dist(p.pos, mouse);
-        if (dist < minDist) {
-            p.applyForce(Vector.sub(p.pos, mouse).setMag(scale(dist, 0, minDist, 0.2, 0.4)));
+        if (mouse) {
+            const dist = Vector.dist(p.pos, mouse);
+            if (dist < minDist) {
+                p.applyForce(Vector.sub(p.pos, mouse).setMag(scale(dist, 0, minDist, 0.2, 0.4)));
+            }
         }
         // Add drag
         p.vel.setMag(p.vel.mag() * 0.99);
@@ -79,6 +83,20 @@ function boom() {
     for (const p of particles) {
         const dir = Vector.sub(p.pos, mouse).setMag(boomStrength);
         p.applyForce(dir);
+    }
+}
+
+function handleMouseMove(e) {
+    if (c % 10 === 0) {
+        mouse.set(e.clientX, e.clientY);
+    }
+    c++;
+}
+
+function handleTouchMove(e) {
+    if (c % 10 === 0) {
+        const { clientX: x, clientY: y } = e.touches[e.touches.length - 1];
+        mouse.set(x, y);
     }
 }
 
