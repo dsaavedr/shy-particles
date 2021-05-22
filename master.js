@@ -1,6 +1,7 @@
 let particles = [],
     c = 0,
-    mouse = new Vector(-100, -100),
+    mouse,
+    minDist,
     WIDTH,
     HEIGHT,
     n;
@@ -38,13 +39,9 @@ function init() {
         particles.push(new Particle(pos, vel, Math.floor(random(minR, maxR)), particleColor));
     }
 
-    window.onmousemove = e => {
-        if (c % 10 === 0) {
-            mouse.set(e.clientX, e.clientY);
-        }
-        c++;
-    };
-
+    //
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("touchmove", handleTouchMove);
     canvas.addEventListener("click", boom);
 
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
