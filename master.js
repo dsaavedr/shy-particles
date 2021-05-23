@@ -81,7 +81,7 @@ function ani() {
 
 function boom() {
     for (const p of particles) {
-        const dir = Vector.sub(p.pos, mouse).setMag(boomStrength);
+        const dir = Vector.sub(p.pos, mouse).setMag(random(0.8 * boomStrength, 1.2 * boomStrength));
         p.applyForce(dir);
     }
 }
